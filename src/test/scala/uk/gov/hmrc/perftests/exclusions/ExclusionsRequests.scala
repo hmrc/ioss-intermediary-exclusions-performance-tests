@@ -24,7 +24,7 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 object ExclusionsRequests extends ServicesConfiguration {
 
   val baseUrl: String = baseUrlFor("ioss-intermediary-exclusions-frontend")
-  val route: String   = "/intermediary-exclusions"
+  val route: String   = "/pay-clients-vat-on-eu-sales/leave-import-one-stop-shop-intermediary"
 
   val navigateToHomePage: HttpRequestBuilder =
     http("Navigate to Home Page")
