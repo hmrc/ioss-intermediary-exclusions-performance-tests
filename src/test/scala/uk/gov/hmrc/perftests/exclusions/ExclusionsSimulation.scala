@@ -21,7 +21,35 @@ import uk.gov.hmrc.perftests.exclusions.ExclusionsRequests._
 
 class ExclusionsSimulation extends PerformanceTestRunner {
 
-  setup("exclusions", "IOSS Intermediary Exclusions Journey") withRequests navigateToHomePage
+  setup("exclusionsMoveCountry", "IOSS Intermediary Move Country Exclusions Journey") withRequests (
+    getAuthorityWizard,
+    postAuthorityWizard,
+    getExclusionsMovedToADifferentCountry,
+    postExclusionsMovedToADifferentCountry(true),
+    getExclusionsWhichEuCountry,
+    postExclusionsWhichEuCountry,
+    getExclusionsMoveDate,
+    postExclusionsMoveDate,
+    getExclusionsTaxNumber,
+    postExclusionsTaxNumber,
+    getCheckYourAnswers,
+    postCheckYourAnswers,
+    getExclusionsRequestReceived
+  )
+
+  setup("exclusionsVoluntary", "IOSS Intermediary Voluntary Exclusions Journey") withRequests (
+    getAuthorityWizard,
+    postAuthorityWizard,
+    getExclusionsMovedToADifferentCountry,
+    postExclusionsMovedToADifferentCountry(false),
+    getExclusionsLeaveScheme,
+    postExclusionsLeaveScheme,
+    getExclusionsStoppedUsingServiceDate,
+    postExclusionsStoppedUsingServiceDate,
+    getCheckYourAnswers,
+    postCheckYourAnswers,
+    getExclusionsRequestReceived
+  )
 
   runSimulation()
 }
