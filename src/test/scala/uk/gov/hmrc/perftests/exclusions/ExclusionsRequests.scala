@@ -36,11 +36,13 @@ object ExclusionsRequests extends ServicesConfiguration {
   def getAuthorityWizard =
     http("Get Authority Wizard page")
       .get(loginUrl + s"/auth-login-stub/gg-sign-in")
+      .check(css(inputSelectorByName("csrfToken"), "value").saveAs("csrfToken"))
       .check(status.in(200, 303))
 
   def postAuthorityWizard =
     http("Enter Auth login credentials ")
       .post(loginUrl + s"/auth-login-stub/gg-sign-in")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("authorityId", "")
       .formParam("gatewayToken", "")
       .formParam("credentialStrength", "strong")
@@ -139,9 +141,7 @@ object ExclusionsRequests extends ServicesConfiguration {
 
   def postCheckYourAnswers =
     http("Post Check Your Answers")
-      .post(s"$baseUrl$route/check-your-answers")
-//      Completion checks not added yet
-//      .post(s"$baseUrl$route/check-your-answers/false")
+      .post(s"$baseUrl$route/check-your-answers/false")
       .formParam("csrfToken", "#{csrfToken}")
       .check(status.in(200, 303))
       .check(header("Location").is(s"$route/exclusions-request-received"))
